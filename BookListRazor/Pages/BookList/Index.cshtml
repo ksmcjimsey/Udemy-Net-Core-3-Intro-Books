@@ -1,0 +1,81 @@
+﻿@page
+@model BookListRazor.IndexModel
+
+<br />
+
+@*All the public properties from the BookList Index.cshtml.cs are availabe for use in this view
+    I like these comment because like JSP comments they are removed from the users view.
+    We are getting bootstrap for free because of core. *@
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">Book List</h2>
+    </div>
+
+    <div class="col-3">
+        <a asp-page="Create" class="btn btn-info form-control text-white">Create New Book</a>
+    </div>
+
+    @* Next section will load a list of books.  We will add buttons to remove and edit a given book. *@
+    <section class="col-12 border p-3 mt-3">
+        <form method="post">
+            @* If we preceed a statement with at sign we can use C#
+                Here we are also using the Model and the public property for the first time. *@
+            @if (Model.Books.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    @* This is the table header *@
+                    <tr class="table-secondary">
+                        <th>
+                            @* lable type, get the first book and grap the name of the column. *@
+                            <label asp-for="Books.FirstOrDefault().Name"></label>
+                        </th>
+                        <th>
+                            @* This is the old way and below is the new, beter way. *@
+                            @* @Html.DisplayNameFor(m=>m.Books.FirstOrDefault().Author) *@
+                            <label asp-for="Books.FirstOrDefault().Author"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Books.FirstOrDefault().ISBN"></label>
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+
+                    @* Now we will use some C# code to loop over the IEnumberable property. *@
+                    @foreach (var item in Model.Books)
+                    {
+                        @* Build each table row using item. *@
+                <tr>
+                    <td>
+                        @* For some weird reason there is no tag helper for DisplayFor so we must use HTML helper, come on Microsoft! *@
+                        @Html.DisplayFor(m => item.Name)
+                    </td>
+                    <td>
+                        @* For some weird reason there is no tag helper for DisplayFor so we must use HTML helper, come on Microsoft! *@
+                        @Html.DisplayFor(m => item.Author)
+                    </td>
+                    <td>
+                        @* For some weird reason there is no tag helper for DisplayFor so we must use HTML helper, come on Microsoft! *@
+                        @Html.DisplayFor(m => item.ISBN)
+                    </td>
+                    <td>
+                        @* Now we can add buttons at the end of the row.
+            Delete is a button because it will run code and Edit is a link to open a new window to edit. *@
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <a class="btn btn-success btn-sm text-white">Edit</a>
+                    </td>
+                </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <p>No books have been added yet.</p>
+            }
+        </form>
+    </section>
+
+</div>
+
