@@ -63,7 +63,10 @@
                         @* Now we can add buttons at the end of the row.
             Delete is a button because it will run code and Edit is a link to open a new window to edit. *@
                         <button class="btn btn-danger btn-sm">Delete</button>
-                        <a class="btn btn-success btn-sm text-white">Edit</a>
+
+                        @* Passing the ID of the line back to the controller 
+                           We are in loop with item variable.  We us amp symbole to use C# with the object name and getter. *@
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white">Edit</a>
                     </td>
                 </tr>
                     }

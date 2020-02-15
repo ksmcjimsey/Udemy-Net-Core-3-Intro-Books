@@ -18,6 +18,9 @@ namespace BookListRazor
         private readonly ApplicationDbContext _db;
 
         // 2. Create a model to hold the return from the user
+        //    Use a property binding book so the OnPost does need a book object passed to it.
+        //    The binding fills the Book object from the put request data.
+        [BindProperty]
         public Book Book { get; set; }
 
         // 3. Create a constructor (ctro tab tab)
@@ -35,8 +38,25 @@ namespace BookListRazor
 
 
         // Save the submittion to the DB
-        public void OnPost()
+        // IActionResult because we are going to another page.
+        public async Task<IActionResult> OnPost()
         {
+            // Will be pasing a book object
+            // Check the book property was passed in correctly
+            if (ModelState.IsValid)
+            {
+                // context takes the book object and adds it to a queue of things to be done
+                await _db.Book.AddAsync(Book);
+
+                // Now context / EF translate queue to SQL speak (insert) in this case.
+                await _db.SaveChangesAsync();
+
+                // Go back to the index page - redirect to a new page
+                return RedirectToPage("Index");
+            }
+            else {
+                return Page();  // If the object is not correct from the input return to the page
+            }
 
         }
     }
