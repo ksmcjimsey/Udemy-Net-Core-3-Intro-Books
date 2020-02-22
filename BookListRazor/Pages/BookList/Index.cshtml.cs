@@ -34,7 +34,23 @@ namespace BookListRazor
             // 4. Get the books and fill the list (IEnumerable)
             //    Need: using Microsoft.EntityFrameworkCore;
             Books = await _db.Book.ToListAsync();   // thread off a task and wait for response.
+        }
 
+
+        // Handles the delete of a book.
+        // This is post handler because we used a button to get here (like a form does)
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            var book = await _db.Book.FindAsync(id);
+            if (book == null)
+            {
+                // Returns to the same index page with NotFound included
+                return NotFound();
+            }
+            _db.Book.Remove(book);
+            await _db.SaveChangesAsync();
+
+            return RedirectToPage("Index");
         }
     }
 }

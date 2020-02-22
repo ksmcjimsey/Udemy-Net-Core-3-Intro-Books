@@ -61,8 +61,12 @@
                     </td>
                     <td>
                         @* Now we can add buttons at the end of the row.
-            Delete is a button because it will run code and Edit is a link to open a new window to edit. *@
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                           Delete is a button because it will run code and Edit is a link to open a new window to edit.
+                           Want to run code on the same index page.  We use a custom handler (not onget or onpost).
+                           asp-route-id adds a route to the URL. *@
+                        <button asp-page-handler="Delete" asp-route-id="@item.Id"
+                                onclick="return confirm('Are you sure you want to delete?')" 
+                                class="btn btn-danger btn-sm">Delete</button>
 
                         @* Passing the ID of the line back to the controller 
                            We are in loop with item variable.  We us amp symbole to use C# with the object name and getter. *@
