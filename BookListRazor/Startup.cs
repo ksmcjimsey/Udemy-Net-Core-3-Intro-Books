@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BookListRazor.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +27,9 @@ namespace BookListRazor
 
             // Because we selected razor pages when creating the project.
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            // Need a service for API if we are going to use APIs
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +61,9 @@ namespace BookListRazor
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+
+                // Need to add to API to middleware as well, not sure why yet.
+                endpoints.MapControllers();
             });
         }
     }
