@@ -7,12 +7,15 @@
     I like these comment because like JSP comments they are removed from the users view.
     We are getting bootstrap for free because of core. *@
 <div class="container row p-0 m-0">
-    <div class="col-9">
+    <div class="col-7">
         <h2 class="text-info">Book List</h2>
     </div>
 
-    <div class="col-3">
+    <div class="col-2">
         <a asp-page="Create" class="btn btn-info form-control text-white">Create New Book</a>
+    </div>
+    <div class"col-3">
+        <a asp-page="Upsert" class="btn btn-secondary form-control text-white">(Add) Upsert New Book</a>
     </div>
 
     @* Next section will load a list of books.  We will add buttons to remove and edit a given book. *@
